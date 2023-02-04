@@ -119,7 +119,7 @@ def gebruik_filter():
                 print(table)
         elif filter_keuze == "3":
                 subkeuze = int(input("Vanaf welk loon wil je filteren? "))
-                filter_l = [persoon for id, persoon in personeel.items() if persoon["loon"] > subkeuze]
+                filter_l = [persoon for id, persoon in personeel.items() if persoon["loon"] < subkeuze]
                 table = PrettyTable(["Naam", "Afdeling", "Start Jaar", "Loon"])
                 for persoon in filter_l:
                         table.add_row([persoon['naam'], persoon['afdeling'], persoon['start_jaar'], persoon['loon']])
@@ -131,68 +131,100 @@ def gebruik_filter():
                 for persoon in filter_j:
                         table.add_row([persoon['naam'], persoon['afdeling'], persoon['start_jaar'], persoon['loon']])
                 print(table)
+def admin_login():
+        admin_naam = input("Geef de naam in:")
+        admin_wachtwoord = input("Geef het wachtwoord in:")
+        while not (admin["naam"] == admin_naam and admin["wachtwoord"] == admin_wachtwoord):
+                print("Gebruikersnaam of wachtwoord niet correct, probeer het opnieuw.")
+                admin_naam = input("Geef de naam in:")
+                admin_wachtwoord = input("Geef het wachtwoord in:")
+        if admin["naam"] == admin_naam and admin["wachtwoord"] == admin_wachtwoord:
+                print("Welkom", admin_naam)
+                toon_menu()
 
+        keuze = input("geef je keuze in")
+        while not keuze == "stop":
+                if keuze == "1":
+                        toon_personeel()
+                        print("geef je keuze in:")
+                        toon_menu()
+                        keuze = input()
+
+                elif keuze == "2":
+                        voeg_personeelslid_toe()
+                        print("geef je keuze in:")
+                        toon_menu()
+                        keuze = input()
+
+                elif keuze == "3":
+                        voeg_personeelsleden_toe()
+                        print("geef je keuze in:")
+                        toon_menu()
+                        keuze = input()
+                elif keuze == "4":
+                        verwijder__personeel()
+                        print("geef je keuze in:")
+                        toon_menu()
+                        keuze = input()
+                elif keuze == "5":
+                        verhoog_loon_van_personeelslid()
+                        print("geef je keuze in:")
+                        toon_menu()
+                        keuze = input()
+                        toon_menu()
+                elif keuze == "6":
+                        verhoog_alle_lonen()
+                        print("geef je keuze in:")
+                        toon_menu()
+                        keuze = input()
+                elif keuze == "7":
+                        toon_admins()
+                        print("geef je keuze in:")
+                        toon_menu()
+                        keuze = input()
+
+                elif keuze == "8":
+                        gebruik_filter()
+                        print("geef je keuze in:")
+                        toon_menu()
+                        keuze = input()
+                else:
+                        print("Foutive Keuze!")
+                        print("geef je keuze in:", toon_menu())
+                        keuze = input()
+
+
+def toon_gebruiker_menu():
+        print("1: Toon Personeel")
+        print("2: Gebruik filter")
+        print("3: Admin login")
 
 ##################################################################
 #Hoofdprogramma
 ##################################################################
-admin_naam = input("Geef de naam in:")
-admin_wachtwoord = input("Geef het wachtwoord in:")
 
-while not (admin["naam"] == admin_naam and admin["wachtwoord"] == admin_wachtwoord):
-    print("Gebruikersnaam of wachtwoord niet correct, probeer het opnieuw.")
-    admin_naam = input("Geef de naam in:")
-    admin_wachtwoord = input("Geef het wachtwoord in:")
-    if admin["naam"] == admin_naam and admin["wachtwoord"] == admin_wachtwoord:
-        print("Welkom", admin_naam)
-toon_menu()
+toon_gebruiker_menu()
 keuze=input("geef je keuze in")
 while not keuze =="stop":
         if keuze == "1":
                 toon_personeel()
                 print("geef je keuze in:")
-                toon_menu()
+                toon_gebruiker_menu()
                 keuze = input()
 
         elif keuze == "2":
-                voeg_personeelslid_toe()
+                gebruik_filter()
                 print("geef je keuze in:")
-                toon_menu()
+                toon_gebruiker_menu()
                 keuze = input()
 
         elif keuze == "3":
-                voeg_personeelsleden_toe()
-                print("geef je keuze in:")
-                toon_menu()
-                keuze = input()
-        elif keuze =="4":
-                verwijder__personeel()
-                print("geef je keuze in:")
-                toon_menu()
-                keuze = input()
-        elif keuze == "5":
-                verhoog_loon_van_personeelslid()
-                print("geef je keuze in:")
-                toon_menu()
-                keuze = input()
-                toon_menu()
-        elif keuze == "6":
-                verhoog_alle_lonen()
-                print("geef je keuze in:")
-                toon_menu()
-                keuze = input()
-        elif keuze =="7":
-                toon_admins()
-                print("geef je keuze in:")
-                toon_menu()
-                keuze = input()
-
-        elif keuze=="8":
-                gebruik_filter()
-                print("geef je keuze in:")
-                toon_menu()
+                admin_login()
+                toon_gebruiker_menu()
                 keuze = input()
         else:
                 print("Foutive Keuze!")
-                print("geef je keuze in:", toon_menu())
+                print("geef je keuze in:", toon_gebruiker_menu())
                 keuze = input()
+
+
